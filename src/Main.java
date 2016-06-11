@@ -1,16 +1,15 @@
 import java.awt.EventQueue;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.JFrame;
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
-import model.AppModel;
 import ui.OptionsPanel;
 import ui.QuerySelectorPanel;
 import ui.ResultsPanel;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 
 
 /**
@@ -32,8 +31,10 @@ public class Main {
 
          public void run() {
             try {
+               UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                Main window = new Main();
                window.frame.setVisible(true);
+               window.frame.setSize(1000, 600);
             } catch (Exception e) {
                e.printStackTrace();
             }

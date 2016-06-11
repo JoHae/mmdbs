@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 public class ResultImage {
 
    private BufferedImage image;
+   private BufferedImage thumbnail;
    private int rank;
    private double similarity;
    private String category;
@@ -46,5 +47,15 @@ public class ResultImage {
    
    public void setCategory(String category) {
       this.category = category;
+   }
+
+   
+   public BufferedImage getThumbnail() {
+      return this.thumbnail;
+   }
+
+   
+   public void setThumbnail(BufferedImage thumbnail) {
+      this.thumbnail = thumbnail;
    }
 }

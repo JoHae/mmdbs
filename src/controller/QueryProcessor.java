@@ -41,16 +41,24 @@ public class QueryProcessor extends Observable {
       
       // For testing
       List<ResultImage> results = new ArrayList();
-      for (File f : model.getQueryImageFile().getParentFile().listFiles()) {
+      File[] resL = model.getQueryImageFile().getParentFile().listFiles();
+      for(int i = 0; i < resL.length; i++) {
+         File f = resL[i];
          try {
             ResultImage res = new ResultImage();
-            res.setImage(ImageIO.read(f));
+            BufferedImage resI = ImageIO.read(f);
+            res.setImage(resI);
+            res.setThumbnail(ImageController.getInstance().scaleImage(resI, 100));
+            res.setRank(i);
+            res.setCategory(f.getParentFile().getName());
+            res.setSimilarity(0.0);
             results.add(res);
          } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
          }
       }
+
       model.setResultImages(results);
       
       // Notify

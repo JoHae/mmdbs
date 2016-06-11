@@ -30,7 +30,7 @@ public class ResultsPanel extends JPanel implements Observer {
    /**
     * Create the panel.
     */
-   List<JLabel> resultLabels = new ArrayList();
+   List<ResultImagePanel> resultPanels = new ArrayList();
    JPanel imagePanel = new JPanel();
    
    public ResultsPanel() {
@@ -48,15 +48,16 @@ public class ResultsPanel extends JPanel implements Observer {
    }
 
    public void update(Observable o, Object arg) {
-      for (JLabel jLabel : resultLabels) {
+      for (ResultImagePanel jLabel : resultPanels) {
          this.remove(jLabel);
       }
       List<ResultImage> results = AppModel.getInstance().getResultImages();
       for (ResultImage resultImage : results) {
          ImageIcon icon = new ImageIcon(ImageController.getInstance().scaleImage(resultImage.getImage(), 100));
          JLabel lbl = new JLabel(icon);
-         resultLabels.add(lbl);
-         imagePanel.add(lbl);
+         ResultImagePanel p = new ResultImagePanel(resultImage);
+         resultPanels.add(p);
+         imagePanel.add(p);
       }
       validate();
       repaint();
