@@ -32,8 +32,10 @@ public class QueryProcessor extends Observable {
       switch(model.getSelectedSimilarityMeasure()) {
          case EUCLIDEAN_DISTANCE:
             measure = new EuclideanMeasure();
+            break;
          case QUADRATIC_FORM_DISTANCE:
             // TODO
+            break;
          default: System.err.println("Unknown Similiarity Measure");
       }
       

@@ -6,25 +6,23 @@
  */
 package ui;
 
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.TitledBorder;
 
 import controller.ImageController;
 import controller.QueryProcessor;
 import model.AppModel;
 import model.ResultImage;
-import javax.swing.JScrollPane;
-import javax.swing.BoxLayout;
-import javax.swing.ScrollPaneConstants;
 
 
 public class ResultsPanel extends JPanel implements Observer {
