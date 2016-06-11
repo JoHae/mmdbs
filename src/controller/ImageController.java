@@ -4,11 +4,12 @@
  * @author Johannes Haeussler - Johannes.3.Haeussler(at)uni-konstanz.de
  * @version 1.0
  */
-package algorithms;
+package controller;
 
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class ImageController {
 
@@ -35,4 +36,7 @@ public class ImageController {
       return after;
    }
    
+   public int getNumRelevantImages(File queryImage) {
+      return queryImage.getParentFile().list().length;
+   }
 }

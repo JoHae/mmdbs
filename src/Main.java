@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+import model.AppModel;
 import ui.OptionsPanel;
 import ui.QuerySelectorPanel;
 import ui.ResultsPanel;

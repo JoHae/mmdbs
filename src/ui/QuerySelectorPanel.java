@@ -27,7 +27,8 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import algorithms.ImageController;
+import controller.ImageController;
+import model.AppModel;
 
 
 public class QuerySelectorPanel extends JPanel {
@@ -76,12 +77,17 @@ public class QuerySelectorPanel extends JPanel {
             chooser.setCurrentDirectory(workingDirectory);
             int returnVal = chooser.showOpenDialog(QuerySelectorPanel.this);
             if(returnVal == JFileChooser.APPROVE_OPTION) {
+               File f = chooser.getSelectedFile();
                System.out.println("You chose to open this file: " +
-                    chooser.getSelectedFile().getName());
+                    f.getName());
                
                try {
-                  BufferedImage img = ImageController.getInstance().scaleImage(ImageIO.read(chooser.getSelectedFile()), 100);
-                  ImageIcon icon = new ImageIcon(img);
+                  BufferedImage img = ImageIO.read(f);
+                  AppModel model = AppModel.getInstance();
+                  model.setQueryImage(img);
+                  model.setQueryCategory(f.getParentFile().getName());
+                  model.setQueryImageFile(f);
+                  ImageIcon icon = new ImageIcon(ImageController.getInstance().scaleImage(img, 100));
                   lblPreview.setIcon(icon);
                   lblPreview.setText("");
                } catch (IOException ex) {
