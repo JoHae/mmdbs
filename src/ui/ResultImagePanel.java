@@ -11,6 +11,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
+import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -19,12 +20,11 @@ import javax.swing.border.LineBorder;
 
 import org.apache.commons.math3.analysis.solvers.NewtonRaphsonSolver;
 
+import model.AppModel;
 import model.ResultImage;
 
 
 public class ResultImagePanel extends JPanel {
-   
-   OverlayImageViewer viewer = new OverlayImageViewer();
 
    /**
     * Create the panel.
@@ -94,21 +94,24 @@ public class ResultImagePanel extends JPanel {
       gbc_lblCategoryVal.gridy = 3;
       add(lblCategoryVal, gbc_lblCategoryVal);
       
+      final OverlayImageViewer viewer = new OverlayImageViewer();
       this.addMouseListener(new MouseAdapter() {
 
          @Override
          public void mouseEntered(java.awt.event.MouseEvent evt) {
-            JPanel p = new JPanel();
-            JLabel  l = new JLabel();
-            l.setIcon(new ImageIcon(resImg.getImage()));
-            p.add(l);
-            viewer.setContent(p);
-            viewer.setVisible(true);
+               JPanel p = new JPanel();
+               JLabel  l = new JLabel();
+               l.setIcon(new ImageIcon(resImg.getImage()));
+               p.add(l);
+               viewer.setContent(p);
+               viewer.setVisible(true);
          }
-
+         
          @Override
          public void mouseExited(java.awt.event.MouseEvent evt) {
-            viewer.setVisible(false);
+            if(viewer.isVisible() && !viewer.mouseIsOver()) {
+               viewer.setVisible(false); 
+            }
          }
      });
 

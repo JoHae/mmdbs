@@ -30,12 +30,12 @@ public class OptionsPanel extends JPanel {
     * Create the panel.
     */
    public OptionsPanel() {
-      setBorder(new TitledBorder(null, "Options", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+      setBorder(new TitledBorder(null, "General Options", TitledBorder.LEADING, TitledBorder.TOP, null, null));
       GridBagLayout gridBagLayout = new GridBagLayout();
-      gridBagLayout.columnWidths = new int[] { 219, 219, 0 };
+      gridBagLayout.columnWidths = new int[] { 156, 141, 0 };
       gridBagLayout.rowHeights = new int[] { 23, 23, 23, 0 };
       gridBagLayout.columnWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
-      gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
+      gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 1.0, Double.MIN_VALUE };
       setLayout(gridBagLayout);
 
       JLabel lblFeatureExtractionMethod = new JLabel("Feature Extraction Method:");
@@ -64,7 +64,8 @@ public class OptionsPanel extends JPanel {
 
       final JComboBox similarityBox = new JComboBox(Statics.SimilarityMeasure.values());
       GridBagConstraints gbc_similarityBox = new GridBagConstraints();
-      gbc_similarityBox.anchor = GridBagConstraints.NORTHWEST;
+      gbc_similarityBox.fill = GridBagConstraints.HORIZONTAL;
+      gbc_similarityBox.anchor = GridBagConstraints.NORTH;
       gbc_similarityBox.insets = new Insets(0, 0, 5, 0);
       gbc_similarityBox.gridx = 1;
       gbc_similarityBox.gridy = 1;
@@ -72,7 +73,7 @@ public class OptionsPanel extends JPanel {
 
       JButton btnExecuteQuery = new JButton("Execute Query");
       GridBagConstraints gbc_btnExecuteQuery = new GridBagConstraints();
-      gbc_btnExecuteQuery.anchor = GridBagConstraints.WEST;
+      gbc_btnExecuteQuery.anchor = GridBagConstraints.SOUTHWEST;
       gbc_btnExecuteQuery.gridx = 1;
       gbc_btnExecuteQuery.gridy = 2;
       add(btnExecuteQuery, gbc_btnExecuteQuery);

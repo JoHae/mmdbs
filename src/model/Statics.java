@@ -10,7 +10,7 @@ package model;
 public class Statics {
 
    public enum ExtractionMethod {
-      COLOR_HISTOGRAM, GLOBAL_EDGE_HISTOGRAM, TEXTURE_HARALICK_FEATURES
+      GLOBAL_COLOR_HISTOGRAM, LOCAL_COLOR_HISTOGRAM, GLOBAL_EDGE_HISTOGRAM, TEXTURE_HARALICK_FEATURES
   }
    
    public enum SimilarityMeasure {
