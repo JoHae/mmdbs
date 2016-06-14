@@ -8,7 +8,7 @@ package model;
 
 import java.awt.image.BufferedImage;
 
-public class ResultImage {
+public class ResultImage implements Comparable<ResultImage>{
 
    private BufferedImage image;
    private BufferedImage thumbnail;
@@ -58,4 +58,13 @@ public class ResultImage {
    public void setThumbnail(BufferedImage thumbnail) {
       this.thumbnail = thumbnail;
    }
+
+@Override
+public int compareTo(ResultImage o) {
+	if (this.similarity > o.getSimilarity()){
+        return -1;
+    }else{
+        return 1;
+    }
+}
 }

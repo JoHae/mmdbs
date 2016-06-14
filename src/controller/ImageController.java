@@ -22,7 +22,7 @@ public class ImageController {
    public BufferedImage scaleImage(BufferedImage img, int maxPixels) {
       int w = img.getWidth();
       int h = img.getHeight();
-      
+       
       double scale = (double) maxPixels / Math.max(w, h);
       int scaledW = (int) (w * scale);
       int scaledH = (int) (h * scale);
