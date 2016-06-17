@@ -18,8 +18,7 @@ import java.util.Observable;
 import javax.imageio.ImageIO;
 
 import model.AppModel;
-import model.Feature;
-import model.FeatureExtractor;
+import model.IFeature;
 import model.ResultImage;
 
 public class QueryProcessor extends Observable {
@@ -43,9 +42,8 @@ public class QueryProcessor extends Observable {
          default: System.err.println("Unknown Similiarity Measure");
       }
      
-      FeatureExtractor extractor = new FeatureExtractor(model.getSelectedExtractionMethod());  
-      Feature featureQueryImage =   extractor.process(model.getQueryImage());
-    
+      FeatureExtractor extractor = new FeatureExtractor();  
+      IFeature featureQueryImage =   extractor.process(model.getQueryImage()).setMeasure(measure);
       
       // For testing
       List<ResultImage> results = new ArrayList<ResultImage> ();
@@ -56,23 +54,34 @@ public class QueryProcessor extends Observable {
             ResultImage res = new ResultImage();
             BufferedImage resI = ImageIO.read(f);
             
-            Feature featureCandidate  = extractor.process(resI);
-           
+            
+            
+            //calculateSimilarity(featureQueryImage);
+            //res.setSimilarity( measure.calculateSimilarity(featureQueryImage, featureCandidate));
+            
+            res.setSimilarity(featureQueryImage.calculateSimilarity(extractor.process(resI)));
             
             res.setImage(resI);
             res.setThumbnail(ImageController.getInstance().scaleImage(resI, 100));
-            res.setRank(i);
+            res.setRank(0);
             res.setCategory(f.getParentFile().getName());
-            res.setSimilarity( measure.calculateSimilarity(featureQueryImage, featureCandidate));
             results.add(res);
          } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
          }
       }
+      
+      // sort the results according to the distance
       Collections.sort(results, (a, b) ->  b.compareTo(a) );
       
+      // update rank label
+      
       model.setResultImages(results);
+      for (int i = 0; i < results.size(); i++) {
+    	  ((ResultImage) results.get(i)).setRank(i+1);
+      }
+      
       
       // Notify, captain notify what?
       setChanged();

@@ -7,11 +7,11 @@
 package controller;
 
 import model.ColorHistogram;
-import model.Feature;
+import model.IFeature;
 
 public interface ISimilarityMeasure {
 
-   //double calculateSimilarity(ColorHistogram histo1, ColorHistogram histo2);
+   double calculateSimilarity(ColorHistogram histo1, ColorHistogram histo2);
 
-   double calculateSimilarity(Feature featureSearch, Feature featureCompare);
+   //double calculateSimilarity(IFeature featureSearch, IFeature featureCompare);
 }

@@ -10,29 +10,88 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ColorHistogram implements Feature {
+import controller.ISimilarityMeasure;
 
-	
+public class ColorHistogram implements IFeature {
+
 	List<int[][][]> histograms = new ArrayList<int[][][]>();
-	public ColorHistogram(BufferedImage image,int bins ,Boolean local) {
-		// TODO Auto-generated constructor stub
-		if(local == false){
-			 int[][][] ch = new int[bins/3][bins/3][bins/3];
-			 for(int x = 0; x < image.getWidth(); x++){
-		            for(int y = 0; y < image.getHeight(); y++) {
-		                int color = image.getRGB(x, y);
-		               // int alpha = (color & 0xff000000) >> 24;
-		                int red = (color & 0x00ff0000) >> 16;
-		                int green = (color & 0x0000ff00) >> 8;
-		                int blue = color & 0x000000ff;
-		                ch[red / bins][green / bins][blue / bins]++;
-		            }
-			 }
-			 histograms.add(ch);
+	private ISimilarityMeasure measure;
+
+	public ColorHistogram(BufferedImage image, int totalBins, int numberOfCells) {
+
+		int cellHeight, cellWidth;
+		if (numberOfCells == 1) {
+			cellHeight = image.getHeight();
+			cellWidth = image.getWidth();
+		} else {
+			// if the image has an uneven height/width one pixel row/cell is
+			// ignored
+			cellHeight = (int) Math.ceil(image.getHeight() / (numberOfCells / 2));
+			cellWidth = (int) Math.ceil(image.getWidth() / (numberOfCells / 2));
 		}
+
+		// create empty histograms
+		for (int i = 0; i < numberOfCells; i++) {
+			
+			histograms.add(createHistogram(image,i, numberOfCells, totalBins, cellWidth, cellHeight));
+		}
+
 	}
 	
-	public List<int[][][]> getHistograms(){
+	int[][][]  createHistogram(BufferedImage image, int cellNumber, int totalCells, int totalBins, int xLenght, int yLenght){
+		
+		// cell layout 
+		// [0][1]
+		// [2][3]
+		// Calculate the starting points for this cell
+		int numberOfRowsColumns;
+		if(totalCells == 1){
+			numberOfRowsColumns = 1;
+		}else{
+			numberOfRowsColumns = (totalCells/2);
+		}
+		
+		int row = (cellNumber / numberOfRowsColumns);
+		int col = cellNumber - (row*numberOfRowsColumns);
+		System.out.println("Row: "+ row + " col:" + col);
+		int startX = row*xLenght;
+		int startY = col*yLenght;
+		int[][][] bin = new  int[totalBins / 3][totalBins / 3][totalBins / 3];
+		for (int x = startX; x < startX+xLenght; x++) {
+			for (int y = startY; y < startY+yLenght; y++) {
+				int color = image.getRGB(x, y);
+
+				// int alpha = (color & 0xff000000) >> 24;
+				int red = (color & 0x00ff0000) >> 16;
+				int green = (color & 0x0000ff00) >> 8;
+				int blue = color & 0x000000ff;
+			
+				bin[red / totalBins][green / totalBins][blue / totalBins]++;
+			}
+
+		}
+		return bin;
+	}
+	
+
+	public List<int[][][]> getHistograms() {
 		return histograms;
+	}
+
+	@Override
+	public double calculateSimilarity(IFeature f) {
+		if (measure != null) {
+			return this.measure.calculateSimilarity(this, (ColorHistogram) f);
+		} else {
+			System.err.println("Call setMeasure first");
+			return 0;
+		}
+
+	}
+
+	@Override
+	public IFeature setMeasure(ISimilarityMeasure measure) {
+		this.measure = measure;
+		return this;
 	}
 }

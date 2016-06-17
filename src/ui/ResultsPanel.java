@@ -48,9 +48,13 @@ public class ResultsPanel extends JPanel implements Observer {
    }
 
    public void update(Observable o, Object arg) {
+	   
+	   imagePanel.removeAll(); 
+	   
       for (ResultImagePanel jLabel : resultPanels) {
          this.remove(jLabel);
       }
+      
       List<ResultImage> results = AppModel.getInstance().getResultImages();
       for (ResultImage resultImage : results) {
          ImageIcon icon = new ImageIcon(ImageController.getInstance().scaleImage(resultImage.getImage(), 100));

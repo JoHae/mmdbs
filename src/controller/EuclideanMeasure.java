@@ -9,28 +9,23 @@ package controller;
 import java.util.List;
 
 import model.ColorHistogram;
-import model.Feature;
+import model.IFeature;
 
 public class EuclideanMeasure implements ISimilarityMeasure {
 
-	public double calculateSimilarity(Feature featureSearch, Feature featureCompare) {
-		if (featureSearch instanceof ColorHistogram && featureCompare instanceof ColorHistogram) {
-			return calculateSimilarity((ColorHistogram) featureSearch, (ColorHistogram) featureCompare);
-		}
-		return 0;
-	}
 
-	private double calculateSimilarity(ColorHistogram histo1, ColorHistogram histo2) {
+	public double calculateSimilarity(ColorHistogram histo1, ColorHistogram histo2) {
 		double distance = 0;
 		
 		// assumption both ColorHistogram have been created with the same parameter
 		for (int i = 0; i < histo1.getHistograms().size(); i++) {
-			distance += calcualteDistance( histo1.getHistograms().get(i),  histo2.getHistograms().get(i));
+			distance += calculateDistance( histo1.getHistograms().get(i),  histo2.getHistograms().get(i));
 		}
-		return distance;
+		// im not sure about the devision, it makes global and local distance comparable
+		return distance/histo1.getHistograms().size();
 	}
 	
-	private double calcualteDistance(int[][][] hist1,int[][][] hist2) {
+	private double calculateDistance(int[][][] hist1,int[][][] hist2) {
 		double distance = 0;
 		// assumption arrays are symmetric
 		for (int r = 0; r < hist1.length; r++) {
@@ -42,5 +37,7 @@ public class EuclideanMeasure implements ISimilarityMeasure {
 		}
 		return Math.sqrt(distance);
 	}
+
+	
 	
 }

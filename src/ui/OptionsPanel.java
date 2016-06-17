@@ -38,7 +38,7 @@ public class OptionsPanel extends JPanel {
       gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 1.0, Double.MIN_VALUE };
       setLayout(gridBagLayout);
 
-      JLabel lblFeatureExtractionMethod = new JLabel("Feature Extraction Method:");
+      JLabel lblFeatureExtractionMethod = new JLabel("IFeature Extraction Method:");
       GridBagConstraints gbc_lblFeatureExtractionMethod = new GridBagConstraints();
       gbc_lblFeatureExtractionMethod.anchor = GridBagConstraints.EAST;
       gbc_lblFeatureExtractionMethod.insets = new Insets(0, 0, 5, 5);
