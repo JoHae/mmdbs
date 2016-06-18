@@ -53,7 +53,7 @@ public class ColorHistogram implements IFeature {
 		
 		int row = (cellNumber / numberOfRowsColumns);
 		int col = cellNumber - (row*numberOfRowsColumns);
-		System.out.println("Row: "+ row + " col:" + col);
+		//System.out.println("Row: "+ row + " col:" + col);
 		int startX = row*xLenght;
 		int startY = col*yLenght;
 		int[][][] bin = new  int[totalBins / 3][totalBins / 3][totalBins / 3];
