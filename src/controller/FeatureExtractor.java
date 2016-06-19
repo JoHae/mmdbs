@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import model.AppModel;
 import model.ColorHistogram;
 import model.ConcolutionColorHistogram;
+import model.Haralick;
 import model.IFeature;
 import model.Statics.ExtractionMethod;
 
@@ -27,7 +28,7 @@ public class FeatureExtractor {
 			// TODO: read a bin and a cell value from the ui 
 			return new ColorHistogram(image,64,4);
 		case TEXTURE_HARALICK_FEATURES:
-			return null;
+			return new Haralick(image);
 		default:
 			return null;
 		}

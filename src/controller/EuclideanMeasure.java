@@ -9,11 +9,12 @@ package controller;
 import java.util.List;
 
 import model.ColorHistogram;
+import model.Haralick;
 import model.IFeature;
 
 public class EuclideanMeasure implements ISimilarityMeasure {
 
-
+	@Override
 	public double calculateSimilarity(ColorHistogram histo1, ColorHistogram histo2) {
 		double distance = 0;
 		
@@ -25,6 +26,18 @@ public class EuclideanMeasure implements ISimilarityMeasure {
 		return distance/histo1.getHistograms().size();
 	}
 	
+	@Override
+	public double calculateSimilarity(Haralick haralick1, Haralick haralick2) {
+		return distance(haralick1.getVector(),haralick2.getVector());
+	}
+	
+	/**
+	 * Calculate the distance between two rgb color histograms
+	 * each rgb bucket is take as one point and compared with the same bucket of the other array
+	 * @param hist1
+	 * @param hist2
+	 * @return
+	 */
 	private double calculateDistance(int[][][] hist1,int[][][] hist2) {
 		double distance = 0;
 		// assumption arrays are symmetric
@@ -37,6 +50,19 @@ public class EuclideanMeasure implements ISimilarityMeasure {
 		}
 		return Math.sqrt(distance);
 	}
+	
+	/**
+	 * euclidean-distance between two vectors
+	 */
+	private double distance(double[] a, double[] b) {
+        double sum = 0.0;
+        for (int i = 0; i < a.length; i++) {
+            sum += Math.pow((a[i] - b[i]),2);
+        }
+        return Math.sqrt(sum);
+    }
+
+	
 
 	
 	
