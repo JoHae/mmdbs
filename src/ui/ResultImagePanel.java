@@ -71,7 +71,7 @@ public class ResultImagePanel extends JPanel {
       gbc_lblSimilarity.gridy = 2;
       add(lblSimilarity, gbc_lblSimilarity);
       
-      JLabel lblSimiliarityVal = new JLabel(String.valueOf(resImg.getSimilarity()));
+      JLabel lblSimiliarityVal = new JLabel(String.format("%.4f", resImg.getSimilarity()));
       GridBagConstraints gbc_lblSimiliarityVal = new GridBagConstraints();
       gbc_lblSimiliarityVal.anchor = GridBagConstraints.WEST;
       gbc_lblSimiliarityVal.insets = new Insets(0, 0, 5, 0);
