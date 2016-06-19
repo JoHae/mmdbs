@@ -30,9 +30,8 @@ public class ColorHistogram implements IFeature {
 			cellWidth = (int) Math.ceil(image.getWidth() / (numberOfCells / 2));
 		}
 
-		// create empty histograms
+		// create histograms, one per cell
 		for (int i = 0; i < numberOfCells; i++) {
-			
 			histograms.add(createHistogram(image,i, numberOfCells, totalBins, cellWidth, cellHeight));
 		}
 
@@ -56,7 +55,12 @@ public class ColorHistogram implements IFeature {
 		//System.out.println("Row: "+ row + " col:" + col);
 		int startX = row*xLenght;
 		int startY = col*yLenght;
-		int[][][] bin = new  int[totalBins / 3][totalBins / 3][totalBins / 3];
+		
+		int range = (int) Math.ceil((double)256/(double)totalBins);
+		System.out.println(range);
+		// totalBins is actually to big, but it has no negative effect
+		int[][][] bin = new  int[totalBins][totalBins][totalBins];
+		//int binrange = totalBins*totalBins*totalBins;
 		for (int x = startX; x < startX+xLenght; x++) {
 			for (int y = startY; y < startY+yLenght; y++) {
 				int color = image.getRGB(x, y);
@@ -65,8 +69,8 @@ public class ColorHistogram implements IFeature {
 				int red = (color & 0x00ff0000) >> 16;
 				int green = (color & 0x0000ff00) >> 8;
 				int blue = color & 0x000000ff;
-			
-				bin[red / totalBins][green / totalBins][blue / totalBins]++;
+			 
+				bin[red / range][green / range][blue / range]++;
 			}
 
 		}
