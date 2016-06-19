@@ -121,10 +121,9 @@ public class OptionsPanel extends JPanel {
       switch (model.getSelectedExtractionMethod()) {
          case GLOBAL_COLOR_HISTOGRAM:
             specificOptionsPanel.add(new GCHOptions());
-            // featurePanel = ;
             break;
          case LOCAL_COLOR_HISTOGRAM:
-            // featurePanel = new LCHOptions();
+            specificOptionsPanel.add(new LCHOptions());
             break;
          case GLOBAL_EDGE_HISTOGRAM:
             break;
