@@ -6,16 +6,23 @@
  */
 package ui;
 
-import javax.swing.JPanel;
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import model.AppModel;
 
 
 public class GCHOptions extends JPanel {
+   
+   AppModel model = AppModel.getInstance();
 
    /**
     * Create the panel.
@@ -23,7 +30,7 @@ public class GCHOptions extends JPanel {
    public GCHOptions() {
       setBorder(new TitledBorder(null, "Global Color Histogram Options", TitledBorder.LEADING, TitledBorder.TOP, null, null));
       GridBagLayout gridBagLayout = new GridBagLayout();
-      gridBagLayout.columnWidths = new int[]{0, 0, 0};
+      gridBagLayout.columnWidths = new int[]{0, 66, 0};
       gridBagLayout.rowHeights = new int[]{0, 0};
       gridBagLayout.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
       gridBagLayout.rowWeights = new double[]{0.0, Double.MIN_VALUE};
@@ -37,10 +44,19 @@ public class GCHOptions extends JPanel {
       add(lblNumberOfBins, gbc_lblNumberOfBins);
       
       JSpinner spinner = new JSpinner();
+      spinner.setValue(model.getNumBins());
       GridBagConstraints gbc_spinner = new GridBagConstraints();
+      gbc_spinner.fill = GridBagConstraints.HORIZONTAL;
       gbc_spinner.gridx = 1;
       gbc_spinner.gridy = 0;
       add(spinner, gbc_spinner);
+      
+      spinner.addChangeListener(new ChangeListener() {
+         @Override
+         public void stateChanged(ChangeEvent e) {
+             model.setNumBins((int) spinner.getValue());
+         }
+     });
 
    }
 

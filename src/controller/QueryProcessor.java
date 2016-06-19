@@ -84,6 +84,7 @@ public class QueryProcessor extends Observable {
       
       
       // Notify, captain notify what?
+      // Houston, we have to notify, Houston
       setChanged();
       notifyObservers();
    }

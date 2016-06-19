@@ -27,6 +27,8 @@ public class AppModel {
    private File queryImageFile;
    private String queryCategory;
    private List<ResultImage> resultImages;
+   private int numBins = 64;
+   private int numCells = 4;
    
    public ExtractionMethod getSelectedExtractionMethod() {
       return this.selectedExtractionMethod;
@@ -82,5 +84,24 @@ public class AppModel {
    public void setQueryImageFile(File queryImageFile) {
       this.queryImageFile = queryImageFile;
    }
+
    
+   public int getNumBins() {
+      return this.numBins;
+   }
+
+   
+   public void setNumBins(int numBins) {
+      this.numBins = numBins;
+   }
+
+   
+   public int getNumCells() {
+      return this.numCells;
+   }
+
+   
+   public void setNumCells(int numCells) {
+      this.numCells = numCells;
+   }
 }
