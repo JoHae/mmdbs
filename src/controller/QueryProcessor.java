@@ -63,7 +63,7 @@ public class QueryProcessor extends Observable {
       File rootImage = model.getQueryImageFile().getParentFile().getParentFile();
       ArrayList<File> images = new ArrayList<>();
       listf(rootImage , images);
-      System.out.println(images.size()+" images found");
+      
       for(int i = 0; i < images.size(); i++) {
          File f =  images.get(i);// resL[i];
          try {
