@@ -7,6 +7,7 @@
 package model;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class ResultImage implements Comparable<ResultImage> {
 
@@ -15,6 +16,7 @@ public class ResultImage implements Comparable<ResultImage> {
 	private int rank;
 	private double similarity;
 	private String category;
+	private File file;
 
 	public BufferedImage getImage() {
 		return this.image;
@@ -63,5 +65,13 @@ public class ResultImage implements Comparable<ResultImage> {
 		} else {
 			return 1;
 		}
+	}
+
+	public File getFile() {
+		return file;
+	}
+
+	public void setFile(File file) {
+		this.file = file;
 	}
 }

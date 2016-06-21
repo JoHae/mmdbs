@@ -12,7 +12,9 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,6 +29,11 @@ import model.ResultImage;
 public class ResultImagePanel extends JPanel {
 
    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3055631753466070534L;
+
+/**
     * Create the panel.
     */
    public ResultImagePanel(final ResultImage resImg) {
@@ -63,21 +70,21 @@ public class ResultImagePanel extends JPanel {
       gbc_lblRankVal.gridy = 1;
       add(lblRankVal, gbc_lblRankVal);
       
-      JLabel lblSimilarity = new JLabel("Similarity:");
+    /*  JLabel lblSimilarity = new JLabel("Similarity:");
       GridBagConstraints gbc_lblSimilarity = new GridBagConstraints();
       gbc_lblSimilarity.anchor = GridBagConstraints.EAST;
       gbc_lblSimilarity.insets = new Insets(0, 0, 5, 5);
       gbc_lblSimilarity.gridx = 0;
       gbc_lblSimilarity.gridy = 2;
-      add(lblSimilarity, gbc_lblSimilarity);
+      add(lblSimilarity, gbc_lblSimilarity);*/
       
-      JLabel lblSimiliarityVal = new JLabel(String.format("%.4f", resImg.getSimilarity()));
+     /* JLabel lblSimiliarityVal = new JLabel(String.format("%.4f", resImg.getSimilarity()));
       GridBagConstraints gbc_lblSimiliarityVal = new GridBagConstraints();
       gbc_lblSimiliarityVal.anchor = GridBagConstraints.WEST;
       gbc_lblSimiliarityVal.insets = new Insets(0, 0, 5, 0);
       gbc_lblSimiliarityVal.gridx = 1;
       gbc_lblSimiliarityVal.gridy = 2;
-      add(lblSimiliarityVal, gbc_lblSimiliarityVal);
+      add(lblSimiliarityVal, gbc_lblSimiliarityVal);*/
       
       JLabel lblCategory = new JLabel("Category:");
       GridBagConstraints gbc_lblCategory = new GridBagConstraints();
@@ -101,7 +108,14 @@ public class ResultImagePanel extends JPanel {
          public void mouseEntered(java.awt.event.MouseEvent evt) {
                JPanel p = new JPanel();
                JLabel  l = new JLabel();
-               l.setIcon(new ImageIcon(resImg.getImage()));
+               
+               
+               try {
+				l.setIcon(new ImageIcon(ImageIO.read(resImg.getFile())));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
                p.add(l);
                viewer.setContent(p);
                viewer.setVisible(true);

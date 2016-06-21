@@ -156,8 +156,9 @@ public class Haralick implements IFeature {
 	}
 
 	private double[][][] generateCooccurrenceMatrices(BufferedImage image) {
-
-		double[][][] cooccurrenceMatrices = new double[4][255][255];
+		
+		double[][][] cooccurrenceMatrices = new double[4][256][256];
+		//double[][][] cooccurrenceMatrices = new double[4][55600][55600];
 		final int imageWidth = image.getWidth();
 		final int imageHeight = image.getHeight();
 		int i, j, pos;
@@ -167,7 +168,7 @@ public class Haralick implements IFeature {
 
 				Color c = new Color(image.getRGB(x, y));
 				int avg = (c.getRed() + c.getGreen() + c.getBlue()) / 3;
-
+/*
 				// 0 degrees
 				i = x - 1;
 				if (i >= 0) {
@@ -196,6 +197,7 @@ public class Haralick implements IFeature {
 					cooccurrenceMatrices[3][pos - 1 - imageWidth][pos]++;
 
 				}
+				*/
 			}
 		}
 		return cooccurrenceMatrices;

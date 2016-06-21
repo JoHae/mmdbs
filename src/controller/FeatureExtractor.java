@@ -33,7 +33,7 @@ public class FeatureExtractor {
             // TODO: read a bin and a cell value from the ui
             return new ColorHistogram(image, numBins, numCells);
          case TEXTURE_HARALICK_FEATURES:
-            return null;
+            return new Haralick(image);
          default:
             return null;
       }

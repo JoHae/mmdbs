@@ -28,6 +28,17 @@ public class QueryProcessor extends Observable {
       return INSTANCE;
    }
    
+   public void listf(File directory , ArrayList<File> files) {
+	    File[] fList = directory.listFiles();
+	    for (File file : fList) {
+	        if (file.isFile() && !file.isHidden()) {
+	            files.add(file);
+	        } else if (file.isDirectory()) {
+	            listf(file, files);
+	        }
+	    }
+	}
+   
    public void executeQuery() {
       AppModel model = AppModel.getInstance();
            
@@ -47,21 +58,27 @@ public class QueryProcessor extends Observable {
       
       // For testing
       List<ResultImage> results = new ArrayList<ResultImage> ();
-      File[] resL = model.getQueryImageFile().getParentFile().listFiles();
-      for(int i = 0; i < resL.length; i++) {
-         File f = resL[i];
+      //String[] resL = model.getQueryImageFile().getParentFile().list();
+      
+      File rootImage = model.getQueryImageFile().getParentFile().getParentFile();
+      ArrayList<File> images = new ArrayList<>();
+      listf(rootImage , images);
+      System.out.println(images.size()+" images found");
+      for(int i = 0; i < images.size(); i++) {
+         File f =  images.get(i);// resL[i];
          try {
             ResultImage res = new ResultImage();
             BufferedImage resI = ImageIO.read(f);
-            
+            //System.out.println(f.getAbsolutePath());
             
             
             //calculateSimilarity(featureQueryImage);
             //res.setSimilarity( measure.calculateSimilarity(featureQueryImage, featureCandidate));
             
             res.setSimilarity(featureQueryImage.calculateSimilarity(extractor.process(resI)));
-            
-            res.setImage(resI);
+           // res.setSimilarity(0);
+            res.setFile(f);
+            //res.setImage(resI);
             res.setThumbnail(ImageController.getInstance().scaleImage(resI, 100));
             res.setRank(0);
             res.setCategory(f.getParentFile().getName());

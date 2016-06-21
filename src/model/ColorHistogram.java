@@ -57,7 +57,7 @@ public class ColorHistogram implements IFeature {
 		int startY = col*yLenght;
 		
 		int range = (int) Math.ceil((double)256/(double)totalBins);
-		System.out.println(range);
+		//System.out.println(range);
 		// totalBins is actually to big, but it has no negative effect
 		int[][][] bin = new  int[totalBins][totalBins][totalBins];
 		//int binrange = totalBins*totalBins*totalBins;

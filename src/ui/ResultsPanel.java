@@ -57,7 +57,9 @@ public class ResultsPanel extends JPanel implements Observer {
       
       List<ResultImage> results = AppModel.getInstance().getResultImages();
       for (ResultImage resultImage : results) {
-         ImageIcon icon = new ImageIcon(ImageController.getInstance().scaleImage(resultImage.getImage(), 100));
+    	 
+         //ImageIcon icon = new ImageIcon(ImageController.getInstance().scaleImage(resultImage.getImage(), 100));
+    	  ImageIcon icon = new ImageIcon(resultImage.getThumbnail());
          JLabel lbl = new JLabel(icon);
          ResultImagePanel p = new ResultImagePanel(resultImage);
          resultPanels.add(p);
